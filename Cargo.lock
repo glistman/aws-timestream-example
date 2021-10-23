@@ -24,7 +24,7 @@ dependencies = [
 [[package]]
 name = "aws-timestream"
 version = "0.1.0"
-source = "git+https://git@github.com/glistman/aws-timestream.git?tag=v0.0.1#61971a8baa1c46cdd579c80df16a135571293e39"
+source = "git+https://git@github.com/glistman/aws-timestream.git?tag=v0.0.2#70650bf0173f3ea1ba0db512cdf400b9ad484cce"
 dependencies = [
  "aws-signing-request",
  "chrono",

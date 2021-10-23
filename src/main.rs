@@ -1,11 +1,13 @@
 use std::{sync::Arc, time::Duration};
 
+use aws_timestream::timestream::DimensionValueType::VARCHAR;
+use aws_timestream::timestream::MeasureValueType::{BIGINT, DOUBLE};
+use aws_timestream::timestream::TimeUnit::NANOSECONDS;
 use aws_timestream::timestream::{Dimension, Record, Timestream, WriteRequest};
 use chrono::Utc;
 use rand::Rng;
 use tokio::sync::RwLock;
 use tokio::time::sleep;
-
 #[tokio::main]
 async fn main() {
     let aws_access_key_id = env!("AWS_ACCESS_KEY_ID");
@@ -33,6 +35,19 @@ async fn main() {
         }
     });
 
+    let dimensions = vec![
+        &Dimension {
+            dimension_value_type: VARCHAR,
+            name: "microservice",
+            value: "test-ms",
+        },
+        &Dimension {
+            dimension_value_type: VARCHAR,
+            name: "host",
+            value: "192.168.10.10",
+        },
+    ];
+
     loop {
         let mut rng = rand::thread_rng();
         let timestream = timestream.clone();
@@ -41,49 +56,28 @@ async fn main() {
         sleep(Duration::from_secs(1)).await;
 
         let time = Utc::now().timestamp_nanos();
+        let time = time.to_string();
 
         let write_request = WriteRequest {
-            database_name: "sampleDB".to_string(),
-            table_name: "prueba".to_string(),
+            database_name: "sampleDB",
+            table_name: "prueba",
             records: vec![
                 Record {
-                    dimensions: vec![
-                        Dimension {
-                            dimension_value_type: "VARCHAR".to_string(),
-                            name: "microservice".to_string(),
-                            value: "test-ms".to_string(),
-                        },
-                        Dimension {
-                            dimension_value_type: "VARCHAR".to_string(),
-                            name: "host".to_string(),
-                            value: "192.168.10.10".to_string(),
-                        },
-                    ],
-                    measure_name: "cpu".to_string(),
+                    dimensions: &dimensions,
+                    measure_name: "cpu",
                     measure_value: rng.gen::<f64>().to_string(),
-                    measure_value_type: "DOUBLE".to_string(),
-                    time: time.to_string(),
-                    time_unit: "NANOSECONDS".to_string(),
+                    measure_value_type: DOUBLE,
+                    time: &time,
+                    time_unit: NANOSECONDS,
                     version: 1,
                 },
                 Record {
-                    dimensions: vec![
-                        Dimension {
-                            dimension_value_type: "VARCHAR".to_string(),
-                            name: "microservice".to_string(),
-                            value: "test-ms".to_string(),
-                        },
-                        Dimension {
-                            dimension_value_type: "VARCHAR".to_string(),
-                            name: "host".to_string(),
-                            value: "192.168.10.10".to_string(),
-                        },
-                    ],
-                    measure_name: "request".to_string(),
+                    dimensions: &dimensions,
+                    measure_name: "request",
                     measure_value: rng.gen::<u32>().to_string(),
-                    measure_value_type: "BIGINT".to_string(),
-                    time: time.to_string(),
-                    time_unit: "NANOSECONDS".to_string(),
+                    measure_value_type: BIGINT,
+                    time: &time,
+                    time_unit: NANOSECONDS,
                     version: 1,
                 },
             ],
