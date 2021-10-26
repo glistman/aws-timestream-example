@@ -11,7 +11,7 @@ checksum = "cdb031dd78e28731d87d56cc8ffef4a8f36ca26c38fe2de700543e627f8a464a"
 [[package]]
 name = "aws-signing-request"
 version = "0.1.0"
-source = "git+https://git@github.com/glistman/aws-signing-request.git?tag=v0.0.1#f481f5b3717e37b550d41f18548723263d60ba28"
+source = "git+https://git@github.com/glistman/aws-signing-request.git?tag=v0.0.2#be898fc7c80d17513f62e68f896fef5098d02da0"
 dependencies = [
  "chrono",
  "hex",
@@ -24,7 +24,7 @@ dependencies = [
 [[package]]
 name = "aws-timestream"
 version = "0.1.0"
-source = "git+https://git@github.com/glistman/aws-timestream.git?tag=v0.0.4#8952b7db7d3533bd5e6dbb09d1a69e747241bfa4"
+source = "git+https://git@github.com/glistman/aws-timestream.git?tag=v0.0.5#b415ff0dbce8972f069728558dbebb78aab77697"
 dependencies = [
  "aws-signing-request",
  "chrono",
