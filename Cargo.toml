@@ -6,7 +6,16 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-timestream = { git = "https://git@github.com/glistman/aws-timestream.git", tag = "v0.0.5" }
+aws-credentials = { git = "https://git@github.com/glistman/aws-credentials.git", tag = "v0.0.4" }
+aws-timestream = { git = "https://git@github.com/glistman/aws-timestream.git", tag = "v0.0.6" }
 tokio = { version = "1.12.0", features = ["full"] }
 chrono = { version = "0.4.19", features =["serde"]}
 rand = "0.8.4"
+
+[[bin]]
+name = "main"
+path = "src/main.rs"
+
+[[bin]]
+name = "main_container_credentials"
+path = "src/main_container_credentials.rs"

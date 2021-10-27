@@ -3,15 +3,39 @@
 version = 3
 
 [[package]]
+name = "async-trait"
+version = "0.1.51"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "44318e776df68115a881de9a8fd1b9e53368d7a4a5ce4cc48517da3393233a5e"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "autocfg"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cdb031dd78e28731d87d56cc8ffef4a8f36ca26c38fe2de700543e627f8a464a"
 
 [[package]]
+name = "aws-credentials"
+version = "0.1.0"
+source = "git+https://git@github.com/glistman/aws-credentials.git?tag=v0.0.4#ef452f7f0a0aa33b3539bc70c573eca4742692ce"
+dependencies = [
+ "async-trait",
+ "chrono",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
 name = "aws-signing-request"
 version = "0.1.0"
-source = "git+https://git@github.com/glistman/aws-signing-request.git?tag=v0.0.2#be898fc7c80d17513f62e68f896fef5098d02da0"
+source = "git+https://git@github.com/glistman/aws-signing-request.git?tag=v0.0.4#397f745adb1eb353e5edcc0d7391301853dfcf38"
 dependencies = [
  "chrono",
  "hex",
@@ -24,8 +48,9 @@ dependencies = [
 [[package]]
 name = "aws-timestream"
 version = "0.1.0"
-source = "git+https://git@github.com/glistman/aws-timestream.git?tag=v0.0.5#b415ff0dbce8972f069728558dbebb78aab77697"
+source = "git+https://git@github.com/glistman/aws-timestream.git?tag=v0.0.6#c263492ea757e26e80701695eaf4e3590d128687"
 dependencies = [
+ "aws-credentials",
  "aws-signing-request",
  "chrono",
  "rand",
@@ -39,6 +64,7 @@ dependencies = [
 name = "aws-timestream-example"
 version = "0.1.0"
 dependencies = [
+ "aws-credentials",
  "aws-timestream",
  "chrono",
  "rand",

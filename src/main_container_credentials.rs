@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use aws_credentials::basic_credentials::AwsBasicCretendtialsProvider;
+use aws_credentials::container_credentials::AwsContrainerCretendtialsProvider;
 use aws_timestream::timestream::DimensionValueType::VARCHAR;
 use aws_timestream::timestream::MeasureValueType::{BIGINT, DOUBLE};
 use aws_timestream::timestream::TimeUnit::NANOSECONDS;
@@ -11,12 +11,7 @@ use tokio::time::sleep;
 
 #[tokio::main]
 async fn main() {
-    let aws_access_key_id = env!("AWS_ACCESS_KEY_ID");
-    let aws_secret_access_key = env!("AWS_SECRET_ACCESS_KEY");
-
-    let aws_credentials_provider =
-        AwsBasicCretendtialsProvider::new(aws_access_key_id, aws_secret_access_key);
-
+    let aws_credentials_provider = AwsContrainerCretendtialsProvider::new().await;
     let timestream = Timestream::new("ingest", "us-east-1", aws_credentials_provider.clone()).await;
 
     let dimensions = vec![
