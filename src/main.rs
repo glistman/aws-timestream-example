@@ -67,7 +67,7 @@ async fn main() {
             ],
         };
 
-        let response = timestream.write(write_request).await;
+        let response = timestream.write(&write_request).await;
         println!("write:{:?}", response);
     }
 }
